@@ -80,3 +80,67 @@ let strObject = {
 console.log('начальное слово: ', strObject.str);
 newStr = replaceStr(strObject);
 console.log('конечное слово: ', newStr);
+
+
+let cityObject1 = {
+    name: 'NN',
+    number: 1300000,
+    getName: function() {
+        return this.name;
+    },
+    getNumber: function() {
+        return this.number;
+    },
+    addProperty: function(property, value) {
+        this[property] = value;
+    }
+};
+
+let cityObject2 = {
+    name: 'YY',
+    number: 1200000
+};
+
+console.log(cityObject1.getName());
+console.log(cityObject1.getNumber());
+//cityObject.addProperty('name', 'YY');
+//console.log(cityObject.getName());
+
+console.log(cityObject1.getName.call(cityObject2));
+//console.log(cityObject1.getNumber());
+newFun = cityObject1.addProperty.bind(cityObject2, 'name', 'FF');
+console.log(cityObject1.getName.call(cityObject2));
+newFun();
+console.log(cityObject1.getName.call(cityObject2));
+
+function example() {
+    return function(a,b) {
+        return a*b*10;
+    }
+}
+console.log(example()(2,2));
+
+function example2(a) {
+    return function(b) {
+        return function(c) {
+            return a*b*c;
+        }
+    }
+}
+console.log(example2(1)(2)(2));
+
+function counter(start) {
+    let count = start;
+    return function(increment, direction = 1, reset = true) {
+        result = 0;
+        if (reset) {
+            result = count+increment*direction;
+            count = result;
+        }
+        return result;
+    }
+}
+let generator = counter(5);
+console.log(generator(5));
+console.log(generator(2,-1));
+console.log(generator(5,1,false));
